@@ -8,23 +8,23 @@ Part 2...
 
 in my-globals.service.ts...
 ```javascript
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';   // add
+import {Observable} from 'rxjs/Observable';   // add
 
 @Injectable()
 export class MyGlobalsService {
 
   MySharedValue: string;
 
-  private _mySharedValueBS = new BehaviorSubject<string>('');
-  MySharedValue$ = this._mySharedValueBS.asObservable();
+  private _mySharedValueBS = new BehaviorSubject<string>('');   // add
+  MySharedValue$ = this._mySharedValueBS.asObservable();   // add
 
   constructor() {
     this.MySharedValue = 'start value!';
-    this._mySharedValueBS.next(this.MySharedValue);
+    this._mySharedValueBS.next(this.MySharedValue);   // add
    }
    
-  setMySharedValue(str) {
+  setMySharedValue(str) {                               // add                          
     this.MySharedValue = str;
     this._mySharedValueBS.next(this.MySharedValue);
   }
@@ -33,13 +33,13 @@ export class MyGlobalsService {
 in page1.component.ts...
 ```javascript
   updateService() {
-    this.globals.setMySharedValue(this.mySharedValue);
+    this.globals.setMySharedValue(this.mySharedValue);  // change
   }
 ```
 
 in app.component.ts...
 ```javascript
-import { Subscription } from 'rxjs/Subscription'; // *** added
+import { Subscription } from 'rxjs/Subscription';  // add
 
 @Component({
   selector: 'app-root',
@@ -47,14 +47,14 @@ import { Subscription } from 'rxjs/Subscription'; // *** added
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  mySharedValueSubscription: Subscription; // *** added
+  mySharedValueSubscription: Subscription;  // add
   title = 'app works!';
   mySharedValue: string;
 
   constructor( private globals: MyGlobalsService) { }
 
-  ngOnInit() {                                                     // *** added
-    this.mySharedValueSubscription = this.globals.MySharedValue$   // *** added
-       .subscribe(str => this.mySharedValue = str);                // *** added
+  ngOnInit() {                                                     
+    this.mySharedValueSubscription = this.globals.MySharedValue$   // change
+       .subscribe(str => this.mySharedValue = str);                // change
   }
   ```

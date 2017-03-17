@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MyGlobalsService } from './my-globals.service' // add import
+import { MyGlobalsService } from './my-globals.service'
+import { Subscription } from 'rxjs/Subscription';  // add
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,15 @@ import { MyGlobalsService } from './my-globals.service' // add import
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  mySharedValueSubscription: Subscription;  // add
   title = 'app works!';
-  mySharedValue: string; // add
+  mySharedValue: string; 
 
-  constructor( private globals: MyGlobalsService) { } // add
+  constructor( private globals: MyGlobalsService) { } 
 
   ngOnInit() {
-    this.mySharedValue = this.globals.MySharedValue;  // add
+    this.mySharedValueSubscription = this.globals.MySharedValue$   // change
+       .subscribe(str => this.mySharedValue = str);                // change
   }
   
 }

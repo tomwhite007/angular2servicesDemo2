@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MyGlobalsService } from '../my-globals.service' // add import
+import { MyGlobalsService } from '../my-globals.service'
 
 @Component({
   selector: 'app-page1',
@@ -8,16 +8,16 @@ import { MyGlobalsService } from '../my-globals.service' // add import
 })
 export class Page1Component implements OnInit {
 
-  mySharedValue: string;  // add
+  mySharedValue: string; 
 
-  constructor(private globals: MyGlobalsService) { }  // insert
+  constructor(private globals: MyGlobalsService) { }  
 
   ngOnInit() {
-    this.mySharedValue = this.globals.MySharedValue;  // add
+    this.mySharedValue = this.globals.MySharedValue; 
   }
   
   updateService() {
-    this.globals.MySharedValue = this.mySharedValue;  // add
+    this.globals.setMySharedValue(this.mySharedValue);  // change
   }
 
 }
