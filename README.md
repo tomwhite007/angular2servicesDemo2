@@ -2,7 +2,9 @@
 Demo of sharing values between components using Observables (BehaviorSubject) 
 
 Part 1, This works but doesn't update app.component heading because it hasn't been told to refresh
+
 So, now...
+
 Part 2...
 
 
